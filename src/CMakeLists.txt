@@ -2,17 +2,17 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/lib
 )
 
-set(sort_array_merge_SRC
-    sort_array_with_merge.cpp
+set(sort_SRC
+    sort_random_vectors.cpp
 )
 
-add_executable (merge_sort_array ${sort_array_merge_SRC})
+add_executable (sort_random_vectors ${sort_SRC})
 
-target_link_libraries(merge_sort_array
-    library
+target_link_libraries(sort_random_vectors
+    sorting
 )
 
-install(TARGETS merge_sort_array
+install(TARGETS sort_random_vectors
         RUNTIME DESTINATION bin
         LIBRARY DESTINATION lib
 )
