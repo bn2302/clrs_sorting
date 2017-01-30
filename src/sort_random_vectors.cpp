@@ -12,7 +12,7 @@ int main()
 {
     // Generate 20 random integers between 0 and 100
     std::vector<int> data_int(20);
-    fill_vector_with_random(data_int);
+    fill_vector_with_random(data_int, 0, 100);
 
     // Sort these integers
     std::cout << "20 Random integers between 0 and 100.\nBefore sorting:\n";
@@ -22,7 +22,7 @@ int main()
     print_vector(data_int);
     
     std::vector<double> data_dbl(20);
-    fill_vector_with_random(data_dbl);
+    fill_vector_with_random(data_dbl, 0.0, 1.0);
 
     // Sort these doubles
     std::cout << "\n\n20 Random doubles between 0 and 1.\nBefore sorting:\n";

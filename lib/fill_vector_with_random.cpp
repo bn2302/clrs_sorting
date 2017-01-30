@@ -5,30 +5,33 @@
 #include <functional>
 #include <iostream>
 
-template <typename T>
-void fill_vector_with_random(T& vec)
+template<class T>
+struct Distribution {};
+
+template <> 
+struct Distribution<int>
+{
+    typedef std::uniform_int_distribution<int> type;
+};
+
+template <> 
+struct Distribution<double> 
+{
+    typedef std::uniform_real_distribution<double> type;
+};
+
+template <typename T, typename A1, typename A2>
+void fill_vector_with_random(T& vec, A1 lo, A2 up)
 {
     std::random_device rnd_device;
     std::mt19937 mersenne_engine(rnd_device());
 
-    if(std::is_same<T, std::vector<int>>::value){
-        std::cout << "Generating random numbers\n";
+    typename Distribution<typename T::value_type>::type dist = typename Distribution<typename T::value_type>::type(lo, up);
 
-        std::uniform_int_distribution<int> dist(0, 100);
-        auto gen = std::bind(dist, mersenne_engine);
-        std::generate(begin(vec), end(vec), gen);
-
-
-    } 
-
-    if(std::is_same<T, std::vector<double>>::value){
-        std::uniform_real_distribution<double> dist(0, 1);
-        auto gen = std::bind(dist, mersenne_engine);
-        std::generate(begin(vec), end(vec), gen);
-    }
-
+    auto gen = std::bind(dist, mersenne_engine);
+    std::generate(begin(vec), end(vec), gen);
 }
 
-template void fill_vector_with_random(std::vector<int>&);
-template void fill_vector_with_random(std::vector<double>&);
+template void fill_vector_with_random(std::vector<int>&, int, int);
+template void fill_vector_with_random(std::vector<double>&, double, double);
 
